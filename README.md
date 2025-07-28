@@ -1,3 +1,4 @@
+![Self-Stalking Project Logo](https://raw.githubusercontent.com/mirando79/MirandoClock/e85e5c848bdbdc5ebac389f48f9b4ae58bd7e6ac/logo_ss.jpg)
 # Hi there! I'm Mirando79 👋
 
 I'm an aspiring Android Developer from Ukraine, passionate about crafting mobile applications. I'm especially interested in Kotlin, Jetpack Compose, and everything related to modern mobile technologies and AI.
