@@ -1,271 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
-
     tools:context=".MainActivity">
 
-
-
-    <!-- ImageView для отображения выбранной картинки как фона приложения -->
-
+    <!-- ImageView для отображения фоновой картинки -->
     <ImageView
-
-        android:id="@+id/wallpaperPreview"
-
+        android:id="@+id/backgroundImageView"
         android:layout_width="0dp"
-
         android:layout_height="0dp"
-
         android:scaleType="centerCrop"
-
-        android:src="@android:color/darker_gray"
-
+        android:src="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        app:layout_constraintTop_toTopOf="parent"
-
-        tools:ignore="ContentDescription" />
-
-
-
-    <!-- TextView для отображения аффирмации поверх картинки -->
-
+    <!-- TextView для отображения аффирмаций -->
     <TextView
-
         android:id="@+id/affirmationTextView"
-
         android:layout_width="0dp"
-
         android:layout_height="wrap_content"
-
         android:layout_marginStart="16dp"
-
         android:layout_marginEnd="16dp"
-
-        android:background="#80000000"
-
-        android:gravity="center"
-
-        android:padding="8dp"
-
-        android:text="Ваша аффирмация здесь!"
-
-        android:textColor="@android:color/white"
-
-        android:textSize="24sp"
-
-        android:textStyle="bold"
-
-        app:layout_constraintBottom_toTopOf="@+id/affirmationEditText"
-
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toTopOf="parent"
-
-        app:layout_constraintVertical_bias="0.2"
-
-        app:layout_constraintVertical_chainStyle="packed" />
-
-
-
-    <!-- EditText для ввода аффирмации -->
-
-    <EditText
-
-        android:id="@+id/affirmationEditText"
-
-        android:layout_width="0dp"
-
-        android:layout_height="wrap_content"
-
-        android:layout_marginStart="16dp"
-
-        android:layout_marginTop="16dp"
-
-        android:layout_marginEnd="16dp"
-
-        android:background="@android:color/white"
-
-        android:hint="Введите вашу аффирмацию"
-
-        android:inputType="textCapSentences"
-
-        android:padding="12dp"
-
-        android:textColor="@android:color/black"
-
-        android:textColorHint="@android:color/darker_gray"
-
-        app:layout_constraintBottom_toTopOf="@+id/setAffirmationButton"
-
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/affirmationTextView" />
-
-
-
-    <!-- Кнопка для сохранения аффирмации -->
-
-    <Button
-
-        android:id="@+id/setAffirmationButton"
-
-        android:layout_width="0dp"
-
-        android:layout_height="wrap_content"
-
-        android:layout_marginStart="16dp"
-
-        android:layout_marginTop="8dp"
-
-        android:layout_marginEnd="16dp"
-
-        android:text="Сохранить аффирмацию"
-
-        app:layout_constraintBottom_toTopOf="@+id/selectImageButton"
-
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/affirmationEditText" />
-
-
-
-    <!-- Кнопка выбора изображения (уже была) -->
-
-    <Button
-
-        android:id="@+id/selectImageButton"
-
-        android:layout_width="0dp"
-
-        android:layout_height="wrap_content"
-
-        android:layout_marginStart="16dp"
-
-        android:layout_marginTop="8dp"
-
-        android:layout_marginEnd="16dp"
-
-        android:text="Выбрать картинку для заставки"
-
-        app:layout_constraintBottom_toTopOf="@+id/beeperSwitch"
-
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/setAffirmationButton" />
-
-
-
-    <!-- Переключатель для бипера -->
-
-    <Switch
-
-        android:id="@+id/beeperSwitch"
-
-        android:layout_width="0dp"
-
-        android:layout_height="wrap_content"
-
-        android:layout_marginStart="16dp"
-
-        android:layout_marginTop="8dp"
-
-        android:layout_marginEnd="16dp"
-
-        android:padding="8dp"
-
-        android:text="Включить бипер"
-
-        android:textColor="@android:color/white"
-
-        android:textSize="18sp"
-
-        android:thumbTint="@android:color/white"
-
-        android:trackTint="@android:color/darker_gray"
-
-        app:layout_constraintBottom_toTopOf="@+id/testBeeperButton"
-
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/selectImageButton" />
-
-
-
-    <!-- Кнопка для теста бипера (появляется, когда бипер включен) -->
-
-    <Button
-
-        android:id="@+id/testBeeperButton"
-
-        android:layout_width="0dp"
-
-        android:layout_height="wrap_content"
-
-        android:layout_marginStart="16dp"
-
-        android:layout_marginTop="8dp"
-
-        android:layout_marginEnd="16dp"
-
-        android:text="Тест бипера"
-
-        android:visibility="gone"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/beeperSwitch" />
-
-
-
-    <!-- ImageView для логотипа "ss" (в нижнем правом углу) -->
-
-    <ImageView
-
-        android:id="@+id/logoImageView"
-
-        android:layout_width="48dp"
-
-        android:layout_height="48dp"
-
-        android:layout_marginEnd="16dp"
-
         android:layout_marginBottom="16dp"
-
-        android:src="@drawable/ic_logo_ss"
-
+        android:background="#80000000"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Здесь будет ваша аффирмация"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        tools:ignore="ContentDescription" />
-
-
+    <!-- Кнопка для перехода к настройкам, которая вызывала ошибку -->
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Настройки"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
