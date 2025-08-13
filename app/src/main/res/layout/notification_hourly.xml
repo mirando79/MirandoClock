@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/black"
+    android:orientation="vertical"
     android:padding="8dp">
 
     <ImageView
         android:id="@+id/hourImage"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/notification_image_desc" />
 
     <TextView
         android:id="@+id/dailyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
-        android:text="Аффирмация дня"
+        android:layout_marginTop="8dp"
+        android:text="@string/affirmation_day"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/hourlyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="8dp"
-        android:text="Аффирмация часа"
-        android:textSize="16sp" />
-</RelativeLayout>
+        android:layout_marginTop="4dp"
+        android:text="@string/affirmation_hour"
+        android:textSize="16sp"
+        android:textColor="@android:color/white" />
+</LinearLayout>
