@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Разрешение для уведомлений (Android 13+) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,22 +13,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MirandoClock">
+
+        <!-- Главное окно приложения -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".HourlyNotificationService" android:exported="false" />
 
-        <receiver android:name=".HourlyNotificationReceiver" android:exported="false" />
-
-        <!-- Объявление нового Activity для экрана настроек -->
+        <!-- Экран настроек -->
         <activity
             android:name=".SettingsActivity"
+            android:exported="false" />
+
+        <!-- Экран выбора рун -->
+        <activity
+            android:name=".RuneSelectorActivity"
+            android:exported="false" />
+
+        <!-- Сервис для уведомлений -->
+        <service
+            android:name=".HourlyNotificationService"
+            android:exported="false" />
+
+        <!-- Ресивер для запуска сервиса -->
+        <receiver
+            android:name=".HourlyNotificationReceiver"
             android:exported="false" />
 
     </application>
