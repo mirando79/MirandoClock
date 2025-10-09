@@ -31,8 +31,12 @@
 
         <!-- Экран выбора рун -->
         <activity
+
+
             android:name=".RuneSelectorActivity"
             android:exported="false" />
+
+        <activity android:name=".PreviewActivity" android:exported="false"/>
 
         <!-- Сервис для уведомлений -->
         <service

@@ -1,6 +1,7 @@
 package com.example.mirandoclock
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -27,11 +28,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Кнопка "Настройки"
-        binding.settingsButton.setOnClickListener {
-            startActivity(android.content.Intent(this, SettingsActivity::class.java))
+        binding.settingsButton?.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
 
-        // Запрашиваем разрешение на уведомления для Android 13+
+        // Кнопка "Показать уведомление"
+        binding.testNotificationButton.setOnClickListener {
+            val intent = Intent(this, HourlyNotificationService::class.java)
+            startService(intent)
+        }
+
+        // Кнопка "Превью уведомления"
+        binding.previewButton.setOnClickListener {
+            startActivity(Intent(this, PreviewActivity::class.java))
+        }
+
+        // Запрос разрешений для уведомлений (Android 13+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             when {
                 ContextCompat.checkSelfPermission(
@@ -41,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                     HourlyNotificationScheduler.schedule(this)
                 }
                 shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
-                    // Можно показать пояснение пользователю, но пока просто запросим
                     requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                 }
                 else -> {

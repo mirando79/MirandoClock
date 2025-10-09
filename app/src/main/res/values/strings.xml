@@ -1,10 +1,16 @@
 <resources>
+    <!-- Основное -->
     <string name="app_name">MirandoClock</string>
-    <string name="notification_image_desc">Картинка для уведомления</string>
 
-    <string name="daily_affirmation">Аффирмация дня</string>
-    <string name="hourly_affirmation">Аффирмация часа</string>
-
+    <!-- Тексты уведомлений -->
     <string name="affirmation_day">Аффирмация дня</string>
     <string name="affirmation_hour">Аффирмация часа</string>
+    <string name="zodiac_icon">Иконка знака зодиака</string>
+
+    <!-- Кнопки -->
+    <string name="btn_show_notification">Показать уведомление</string>
+    <string name="btn_preview_notification">Превью уведомления</string>
+
+    <!-- Описания -->
+    <string name="notification_image_desc">Изображение уведомления</string>
 </resources>
