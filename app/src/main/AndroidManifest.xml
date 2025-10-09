@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mirandoclock"> <!-- ВАЖНО: Добавлен package! -->
 
     <!-- Разрешение для уведомлений (Android 13+) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -29,23 +30,9 @@
             android:name=".SettingsActivity"
             android:exported="false" />
 
-        <!-- Экран выбора рун -->
+        <!-- Экран редактирования аффирмаций (теперь объявлен) -->
         <activity
-
-
-            android:name=".RuneSelectorActivity"
-            android:exported="false" />
-
-        <activity android:name=".PreviewActivity" android:exported="false"/>
-
-        <!-- Сервис для уведомлений -->
-        <service
-            android:name=".HourlyNotificationService"
-            android:exported="false" />
-
-        <!-- Ресивер для запуска сервиса -->
-        <receiver
-            android:name=".HourlyNotificationReceiver"
+            android:name=".EditAffirmationActivity"
             android:exported="false" />
 
     </application>

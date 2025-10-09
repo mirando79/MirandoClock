@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Основной цвет фона, соответствующий темному стилю из макета -->
+    <solid android:color="#404040"/>
+
+    <!-- Закругленные углы, как того требует современный дизайн -->
+    <corners android:radius="12dp"/>
+</shape>

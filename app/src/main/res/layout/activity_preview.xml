@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/previewImage"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:src="@drawable/zodiac_aries"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/dailyPreviewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/affirmation_day"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/hourlyPreviewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/affirmation_hour"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>
