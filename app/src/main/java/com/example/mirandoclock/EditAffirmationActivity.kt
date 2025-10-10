@@ -1,13 +1,13 @@
 package com.example.mirandoclock
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity // <-- ВАЖНОЕ НАСЛЕДОВАНИЕ
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit // ВАЖНО: для использования KTX-функции sharedPrefs.edit { ... }
 import com.example.mirandoclock.databinding.ActivityEditAffirmationBinding
 
-// Класс теперь правильно наследуется от AppCompatActivity
+// Класс для редактирования аффирмаций
 class EditAffirmationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditAffirmationBinding
@@ -21,7 +21,7 @@ class EditAffirmationActivity : AppCompatActivity() {
         binding = ActivityEditAffirmationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 1. Получаем ключ, который говорит нам, что редактировать
+        // 1. Получаем ключ, который говорит нам, что редактировать (например, "Daily" или "Aries")
         affirmationKey = intent.getStringExtra("AFFIRMATION_KEY")
 
         if (affirmationKey == null) {
@@ -79,13 +79,14 @@ class EditAffirmationActivity : AppCompatActivity() {
 
     /**
      * Сохраняет текст аффирмации в SharedPreferences под соответствующим ключом.
+     * Использует KTX-расширение 'edit { ... }' для более чистого кода.
      */
     private fun saveAffirmationText() {
         val textToSave = binding.affirmationEditText.text.toString().trim()
         val sharedPrefs = getSharedPreferences(prefsName, Context.MODE_PRIVATE)
 
         // Сохраняем текст по ключу
-        sharedPrefs.edit().putString(affirmationKey, textToSave).apply()
+        sharedPrefs.edit { putString(affirmationKey, textToSave) }
 
         Toast.makeText(this, "Аффирмация сохранена!", Toast.LENGTH_SHORT).show()
         finish() // Закрываем активность после сохранения

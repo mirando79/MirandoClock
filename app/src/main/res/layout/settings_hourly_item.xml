@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Корневой макет для одного элемента в списке настроек (1 час/знак) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:background="#404040"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <!-- 1. Чекбокс для включения/выключения аффирмации -->
+    <CheckBox
+        android:id="@+id/hourlyCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="#FFFFFF" />
+
+    <!-- 2. Текстовое поле для отображения времени и знака -->
+    <TextView
+        android:id="@+id/hourlyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/default_hourly_label"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        tools:text="1: Водолей" />
+
+    <!-- 3. Разделитель, чтобы кнопки были справа -->
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <!-- 4. Кнопка "Обзор" (просмотр текущей аффирмации) -->
+    <Button
+        android:id="@+id/hourlyImageButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/affirmation_review_button"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <!-- 5. Кнопка "Записи" (редактирование аффирмации) -->
+    <Button
+        android:id="@+id/hourlyAffirmationEditButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="@string/affirmation_edit_button"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+</LinearLayout>

@@ -1,16 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Основное -->
+    <!-- Основные строки приложения -->
     <string name="app_name">MirandoClock</string>
+    <string name="settings">Настройки</string>
+    <string name="loading_image">Загрузка изображения</string>
+    <string name="zodiac_icon">Изображение знака зодиака или фона для уведомления</string>
 
-    <!-- Тексты уведомлений -->
-    <string name="affirmation_day">Аффирмация дня</string>
-    <string name="affirmation_hour">Аффирмация часа</string>
-    <string name="zodiac_icon">Иконка знака зодиака</string>
+    <!-- Строки для экрана SettingsActivity -->
+    <string name="affirmation_day_title">Аффирмация дня</string>
+    <string name="daily_affirmation_placeholder">Здесь будет аффирмация дня</string>
+    <string name="button_review">Обзор</string>
+    <string name="button_edit">Записи</string>
+    <string name="hourly_affirmations_title">Аффирмации по часам (Знаки Зодиака)</string>
+    <string name="additional_settings_title">Дополнительные настройки</string>
+    <string name="night_mode_label">Отключить бипер в ночное время</string>
+    <string name="screen_time_default">Длительность: 3с</string>
+    <string name="color_font_sound_button">Настройка цвета, шрифта и звука</string>
 
-    <!-- Кнопки -->
-    <string name="btn_show_notification">Показать уведомление</string>
-    <string name="btn_preview_notification">Превью уведомления</string>
+    <!-- Строки для экрана EditAffirmationActivity -->
+    <string name="edit_title_daily">Редактирование ЕЖЕДНЕВНОЙ аффирмации</string>
+    <!-- %s будет заменено на название знака зодиака -->
+    <string name="edit_title_hourly_format">Редактирование аффирмации для знака: %s</string>
+    <string name="button_save">Сохранить</string>
+    <string name="button_cancel">Отмена</string>
+    <string name="toast_affirmation_saved">Аффирмация сохранена!</string>
+    <string name="toast_changes_cancelled">Изменения отменены.</string>
+    <string name="error_key_not_found">Ошибка: Ключ аффирмации не найден.</string>
 
-    <!-- Описания -->
-    <string name="notification_image_desc">Изображение уведомления</string>
+    <!-- Названия 12 знаков зодиака (для использования в цикле и ключах) -->
+    <string name="zodiac_aquarius">Водолей</string>
+    <string name="zodiac_pisces">Рыбы</string>
+    <string name="zodiac_aries">Овен</string>
+    <string name="zodiac_taurus">Телец</string>
+    <string name="zodiac_gemini">Близнецы</string>
+    <string name="zodiac_cancer">Рак</string>
+    <string name="zodiac_leo">Лев</string>
+    <string name="zodiac_virgo">Дева</string>
+    <string name="zodiac_libra">Весы</string>
+    <string name="zodiac_scorpio">Скорпион</string>
+    <string name="zodiac_sagittarius">Стрелец</string>
+    <string name="zodiac_capricorn">Козерог</string>
 </resources>

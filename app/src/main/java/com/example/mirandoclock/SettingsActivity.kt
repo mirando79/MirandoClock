@@ -3,226 +3,212 @@ package com.example.mirandoclock
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.Space
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.mirandoclock.databinding.ActivitySettingsBinding
+import kotlin.math.minOf // ИСПРАВЛЕНИЕ: Добавлен необходимый импорт для minOf
 
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
-
-    // Список знаков Зодиака (с 1 по 12 час)
-    private val zodiacSigns = listOf(
+    // Список названий знаков зодиака в порядке часов (1-12)
+    private val ZODIAC_SIGNS = listOf(
         "Водолей", "Рыбы", "Овен", "Телец", "Близнецы", "Рак",
         "Лев", "Дева", "Весы", "Скорпион", "Стрелец", "Козерог"
     )
 
-    private val prefsName = "MirandoPrefs"
+    // Ключи для SharedPreferences
+    private val PREFS_NAME = "AffirmationPrefs"
+    private val KEY_DAILY_AFFIRMATION = "daily_affirmation_text"
+    private val KEY_DAILY_CHECKED = "daily_affirmation_checked"
+    private val KEY_HOURLY_TEXT_PREFIX = "hourly_affirmation_text_"
+    private val KEY_HOURLY_CHECKED_PREFIX = "hourly_affirmation_checked_"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 1. Динамическое создание 12 ячеек
-        setupHourlySettings()
+        // 1. Инициализация и отображение списка аффирмаций по часам
+        setupHourlyAffirmations()
 
-        // 2. Загрузка и настройка состояния настроек
-        loadSettingsState()
+        // 2. Инициализация аффирмации дня
+        setupDailyAffirmation()
 
-        // 3. Настройка слушателей для элементов управления
-        setupEventListeners()
+        // 3. Настройка обработчиков нажатий для дополнительных кнопок
+        setupExtraButtons()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Обновляем текст аффирмации дня при возвращении с экрана редактирования
+        loadAffirmationText(KEY_DAILY_AFFIRMATION, binding.dailyAffirmationTextView, getString(R.string.daily_affirmation_placeholder))
+
+        // Обновляем тексты почасовых аффирмаций
+        updateHourlyAffirmationTexts()
     }
 
     /**
-     * Загружает сохраненное состояние из SharedPreferences и применяет его.
+     * Загружает сохраненный текст аффирмации и устанавливает его в TextView.
      */
-    private fun loadSettingsState() {
-        val sharedPrefs = getSharedPreferences(prefsName, Context.MODE_PRIVATE)
+    private fun loadAffirmationText(key: String, textView: TextView, defaultText: String) {
+        val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val savedText = prefs.getString(key, null)
 
-        // Загрузка состояния ночного режима
-        val isNightModeEnabled = sharedPrefs.getBoolean("night_mode_enabled", false)
-        binding.nightModeCheckbox.isChecked = isNightModeEnabled
-
-        // Загрузка состояния ежедневной аффирмации
-        val isDailyAffirmationEnabled = sharedPrefs.getBoolean("daily_affirmation_enabled", false)
-        binding.dailyAffirmationCheckbox.isChecked = isDailyAffirmationEnabled
-
-        // Загрузка текста ежедневной аффирмации
-        // 'Daily' — это ключ для SharedPreferences
-        val dailyText = sharedPrefs.getString("Daily", "Аффирмация дня (по умолчанию)")
-        binding.dailyAffirmationTextView.text = dailyText
+        textView.text = if (!savedText.isNullOrEmpty()) {
+            savedText
+        } else {
+            defaultText
+        }
     }
 
     /**
-     * Настраивает слушатели событий для основных элементов настроек.
+     * Настраивает элемент "Аффирмация дня".
      */
-    private fun setupEventListeners() {
-        // Сохранение состояния при изменении чекбокса ночного режима
-        binding.nightModeCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            saveBooleanSetting("night_mode_enabled", isChecked)
-            Toast.makeText(this, "Ночной режим: ${if (isChecked) "ВКЛ" else "ВЫКЛ"}", Toast.LENGTH_SHORT).show()
+    private fun setupDailyAffirmation() {
+        val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+        // Загрузка и установка текста
+        loadAffirmationText(KEY_DAILY_AFFIRMATION, binding.dailyAffirmationTextView, getString(R.string.daily_affirmation_placeholder))
+
+        // Загрузка состояния чекбокса
+        val isChecked = prefs.getBoolean(KEY_DAILY_CHECKED, true) // По умолчанию включено
+        binding.dailyAffirmationCheckbox.isChecked = isChecked
+
+        // Обработчик чекбокса
+        binding.dailyAffirmationCheckbox.setOnCheckedChangeListener { _, checked ->
+            prefs.edit().putBoolean(KEY_DAILY_CHECKED, checked).apply()
         }
 
-        // Сохранение состояния при изменении чекбокса ежедневной аффирмации
-        binding.dailyAffirmationCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            saveBooleanSetting("daily_affirmation_enabled", isChecked)
-            Toast.makeText(this, "Аффирмация дня: ${if (isChecked) "ВКЛ" else "ВЫКЛ"}", Toast.LENGTH_SHORT).show()
-        }
-
-        // Кнопка "Записи" для ежедневной аффирмации - запускает EditAffirmationActivity
+        // Обработчик кнопки "Записи" (редактирование)
         binding.dailyAffirmationEditButton.setOnClickListener {
-            startEditAffirmationActivity("Daily")
+            launchEditActivity(KEY_DAILY_AFFIRMATION, getString(R.string.edit_title_daily))
         }
 
-        // Кнопка "Обзор" для ежедневной аффирмации - показывает текущий текст
+        // TODO: Обработчик кнопки "Обзор"
         binding.dailyImageButton.setOnClickListener {
-            showAffirmationReview("Daily")
-        }
-
-        // Кнопка "Настройка цвета, шрифта и звука"
-        binding.colorFontSoundButton.setOnClickListener {
-            Toast.makeText(this, "Открытие экрана кастомизации (WIP)", Toast.LENGTH_SHORT).show()
-            // TODO: Здесь будет Intent для запуска экрана кастомизации
+            // Реализация обзора аффирмации дня
         }
     }
 
     /**
-     * Показывает текст аффирмации в Toast для обзора.
+     * Создает и добавляет 12 элементов для почасовых аффирмаций.
      */
-    private fun showAffirmationReview(key: String) {
-        val sharedPrefs = getSharedPreferences(prefsName, Context.MODE_PRIVATE)
-        val text = sharedPrefs.getString(key, "Текст не установлен.")
-        Toast.makeText(this, "Обзор [$key]: $text", Toast.LENGTH_LONG).show()
-    }
+    private fun setupHourlyAffirmations() {
+        // Устраняем баг с дублированием: удаляем все ранее добавленные View
+        binding.hourlySettingsContainer.removeAllViews()
 
-    /**
-     * Сохраняет булево значение в SharedPreferences.
-     */
-    private fun saveBooleanSetting(key: String, value: Boolean) {
-        val sharedPrefs = getSharedPreferences(prefsName, Context.MODE_PRIVATE)
-        sharedPrefs.edit().putBoolean(key, value).apply()
-    }
+        val inflater = LayoutInflater.from(this)
+        val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-    /**
-     * Динамически генерирует 12 ячеек для почасовых настроек (по знакам Зодиака).
-     */
-    private fun setupHourlySettings() {
-        val whiteColor = ContextCompat.getColor(this, android.R.color.white)
+        for (i in 0 until 12) {
+            val hour = i + 1
+            val sign = ZODIAC_SIGNS[i]
+            // Ключи для SharedPreferences для текущего часа
+            val textKey = KEY_HOURLY_TEXT_PREFIX + hour
+            val checkedKey = KEY_HOURLY_CHECKED_PREFIX + hour
 
-        zodiacSigns.forEachIndexed { index, sign ->
-            val hour = (index + 1) % 12
-            val displayHour = if (hour == 0) 12 else hour
-            val labelText = "$displayHour: $sign"
-            // Используем имя знака в качестве ключа (напр., "Водолей" или "Телец")
-            val signKey = sign.replace(" ", "_")
+            // Создаем новый View из макета settings_hourly_item.xml
+            val hourlyItemView = inflater.inflate(R.layout.settings_hourly_item, binding.hourlySettingsContainer, false)
 
-            // 1. Создание контейнера строки (LinearLayout)
-            val rowLayout = LinearLayout(this).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    topMargin = 8.dpToPx()
-                }
+            // Находим элементы внутри созданного View
+            val checkbox = hourlyItemView.findViewById<CheckBox>(R.id.hourlyCheckbox)
+            val label = hourlyItemView.findViewById<TextView>(R.id.hourlyLabel)
+            val editButton = hourlyItemView.findViewById<Button>(R.id.hourlyAffirmationEditButton)
+            val reviewButton = hourlyItemView.findViewById<Button>(R.id.hourlyImageButton) // Кнопка "Обзор"
 
-                background = ContextCompat.getDrawable(this@SettingsActivity, R.drawable.rounded_card_dark)
-                orientation = LinearLayout.HORIZONTAL
-                gravity = Gravity.CENTER_VERTICAL
-                setPadding(12.dpToPx(), 12.dpToPx(), 12.dpToPx(), 12.dpToPx())
+            // 1. Устанавливаем метку (час и знак)
+            label.text = getString(R.string.hourly_label_format, hour, sign)
+
+            // 2. Загрузка и установка состояния чекбокса
+            val isChecked = prefs.getBoolean(checkedKey, false) // По умолчанию выключено
+            checkbox.isChecked = isChecked
+            checkbox.tag = checkedKey // Используем tag для хранения ключа
+
+            // 3. Обработчик чекбокса: сохранение состояния
+            checkbox.setOnCheckedChangeListener { _, checked ->
+                prefs.edit().putBoolean(checkedKey, checked).apply()
             }
 
-            // 2. Чекбокс
-            val checkbox = CheckBox(this).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                buttonTintList = ContextCompat.getColorStateList(this@SettingsActivity, R.color.white)
-                // TODO: Здесь должна быть загрузка и сохранение состояния чекбокса
+            // 4. Обработчик кнопки "Записи" (редактирование)
+            editButton.setOnClickListener {
+                // ИСПРАВЛЕНИЕ: Передаем только 'sign', так как строковый ресурс ожидает один %s
+                val title = getString(R.string.edit_title_hourly_format, sign)
+                launchEditActivity(textKey, title)
             }
-            rowLayout.addView(checkbox)
 
-            // 3. Текстовое поле (час: знак)
-            val label = TextView(this).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    marginStart = 8.dpToPx()
-                }
-                text = labelText
-                setTextColor(whiteColor)
-                textSize = 16f
+            // 5. TODO: Обработчик кнопки "Обзор"
+            reviewButton.setOnClickListener {
+                // Реализация обзора почасовой аффирмации
             }
-            rowLayout.addView(label)
 
-            // 4. Спейс (для растяжения)
-            val space = Space(this).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    1.0f
-                )
-            }
-            rowLayout.addView(space)
-
-            // 5. Кнопка "Обзор"
-            val reviewButton = Button(this).apply {
-                text = "Обзор"
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    48.dpToPx()
-                ).apply {
-                    marginEnd = 8.dpToPx()
-                }
-                textSize = 16f
-                setOnClickListener {
-                    showAffirmationReview(signKey)
-                }
-            }
-            rowLayout.addView(reviewButton)
-
-            // 6. Кнопка "Записи" (редактирование)
-            val editButton = Button(this).apply {
-                text = "Записи"
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    48.dpToPx()
-                )
-                textSize = 16f
-                setOnClickListener {
-                    // Запускаем экран редактирования с ключом-знаком Зодиака
-                    startEditAffirmationActivity(signKey)
-                }
-            }
-            rowLayout.addView(editButton)
-
-            // Добавление готовой строки в контейнер
-            binding.hourlySettingsContainer.addView(rowLayout)
+            // Добавляем созданный элемент в контейнер
+            binding.hourlySettingsContainer.addView(hourlyItemView)
         }
     }
 
     /**
-     * Запускает активность редактирования аффирмации, передавая ключ (знак Зодиака или "Daily").
+     * Обновляет текст почасовых аффирмаций, вызывается в onResume.
      */
-    private fun startEditAffirmationActivity(affirmationKey: String) {
+    private fun updateHourlyAffirmationTexts() {
+        for (i in 0 until 12) {
+            val hour = i + 1
+            val textKey = KEY_HOURLY_TEXT_PREFIX + hour
+
+            // Получаем элемент View для текущего часа
+            val hourlyItemView = binding.hourlySettingsContainer.getChildAt(i)
+            if (hourlyItemView != null) {
+                val label = hourlyItemView.findViewById<TextView>(R.id.hourlyLabel)
+                val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                val savedText = prefs.getString(textKey, "")
+
+                // Обновляем метку: добавляем превью текста к часу/знаку
+                val sign = ZODIAC_SIGNS[i]
+                val baseLabel = getString(R.string.hourly_label_format, hour, sign)
+
+                // Показываем первые 20 символов аффирмации, если она сохранена
+                label.text = if (!savedText.isNullOrEmpty()) {
+                    // ИСПРАВЛЕНИЕ: minOf теперь доступен благодаря импорту
+                    val preview = savedText.substring(0, minOf(savedText.length, 20))
+                    "$baseLabel: $preview..."
+                } else {
+                    baseLabel
+                }
+            }
+        }
+    }
+
+    /**
+     * Запускает EditAffirmationActivity.
+     */
+    private fun launchEditActivity(key: String, title: String) {
         val intent = Intent(this, EditAffirmationActivity::class.java).apply {
-            // Передаем ключ, чтобы знать, какой текст редактировать и сохранять
-            putExtra("AFFIRMATION_KEY", affirmationKey)
+            putExtra("AFFIRMATION_KEY", key)
+            putExtra("AFFIRMATION_TITLE", title)
         }
-        startActivity(intent) // <--- ЭТА СТРОКА РАСКОММЕНТИРОВАНА
+        startActivity(intent)
     }
 
-    // Хелпер функция для конвертации dp в px
-    private fun Int.dpToPx(): Int {
-        return (this * resources.displayMetrics.density).toInt()
+    /**
+     * Настраивает обработчики для кнопок из дополнительной секции.
+     */
+    private fun setupExtraButtons() {
+        // TODO: Обработчик для Ночного режима
+        binding.nightModeCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            // Сохранение состояния
+        }
+
+        // TODO: Обработчик для Длительности подсветки
+        binding.screenTimeButton.setOnClickListener {
+            // Открытие диалога для выбора длительности
+        }
+
+        // TODO: Обработчик для Настройки цвета, шрифта и звука
+        binding.colorFontSoundButton.setOnClickListener {
+            // Открытие нового Activity для этих настроек
+        }
     }
 }
