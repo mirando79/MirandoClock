@@ -4,120 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
+    android:background="#202020"
     android:padding="16dp"
     tools:context=".EditAffirmationActivity">
 
-    <!-- Заголовок, который будет показывать, что мы редактируем -->
+    <!-- Заголовок, который будет отображать тип редактируемой аффирмации -->
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/editTitleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:textColor="#E0E0E0"
-        android:textSize="20sp"
-        android:textStyle="bold"<?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#202020"
-        android:padding="16dp"
-        tools:context=".EditAffirmationActivity">
-
-        <!-- Поле для ввода текста аффирмации -->
-        <EditText
-            android:id="@+id/affirmationEditText"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/edit_text_background"
-            android:gravity="top|start"
-            android:hint="@string/edit_hint"
-            android:padding="12dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#CCCCCC"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/saveButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Я приветствую каждый новый день с радостью и благодарностью!" />
-
-        <!-- Кнопка сохранения -->
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/save_button"
-            android:backgroundTint="#00BCD4"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    android:paddingBottom="16dp"
-        android:text="@string/edit_affirmation_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Редактирование ЕЖЕДНЕВНОЙ аффирмации" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Редактирование Аффирмации Дня" />
 
     <!-- Поле для ввода текста аффирмации -->
     <EditText
         android:id="@+id/affirmationEditText"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:background="#303030"
-        android:gravity="top|start"
-        android:hint="Введите вашу аффирмацию здесь..."
-        android:inputType="textMultiLine"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/edittext_background"
+        android:gravity="top"
+        android:hint="@string/edit_hint"
+        android:inputType="textMultiLine|textCapSentences"
         android:minLines="5"
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#AAAAAA"
-        app:layout_constraintBottom_toTopOf="@+id/buttonContainer"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/editTitleTextView" />
 
-    <!-- Контейнер для кнопок -->
-    <LinearLayout
-        android:id="@+id/buttonContainer"
+    <!-- Кнопка "Сохранить" -->
+    <Button
+        android:id="@+id/saveButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/edit_save"
+        android:backgroundTint="#4CAF50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cancelButton"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Кнопка "Отмена" -->
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/edit_cancel"
+        android:backgroundTint="#F44336"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <!-- Кнопка Отмена -->
-        <Button
-            android:id="@+id/cancelButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cancel_button"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#606060"
-            android:textColor="#FFFFFF" />
-
-        <!-- Кнопка Сохранить -->
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/save_button"
-            android:layout_marginStart="8dp"
-            android:backgroundTint="#007BFF"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/saveButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,94 +1,92 @@
 package com.example.mirandoclock
 
-import android.content.Context
-import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit // ВАЖНО: для использования KTX-функции sharedPrefs.edit { ... }
+import android.os.Bundle
+import android.content.Context
 import com.example.mirandoclock.databinding.ActivityEditAffirmationBinding
 
-// Класс для редактирования аффирмаций
+/**
+ * Activity для редактирования ежедневной или почасовой аффирмации.
+ * Загружает и сохраняет текст аффирмации с помощью SharedPreferences,
+ * используя ключ, переданный из SettingsActivity.
+ */
 class EditAffirmationActivity : AppCompatActivity() {
 
+    // Объект View Binding для доступа к элементам макета
     private lateinit var binding: ActivityEditAffirmationBinding
-    private var affirmationKey: String? = null
-    // Имя для SharedPreferences
-    private val prefsName = "MirandoPrefs"
+
+    // Имя файла SharedPreferences, в котором будут храниться все аффирмации
+    private val PREFS_NAME = "AffirmationPrefs"
+
+    // Ключ, по которому текст аффирмации будет сохранен/загружен.
+    // Его значение будет передано через Intent.
+    private var affirmationKey: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Инициализация View Binding
+
+        // Инициализация View Binding и установка макета
         binding = ActivityEditAffirmationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 1. Получаем ключ, который говорит нам, что редактировать (например, "Daily" или "Aries")
-        affirmationKey = intent.getStringExtra("AFFIRMATION_KEY")
+        // 1. Получаем данные из Intent, переданные SettingsActivity
+        val title = intent.getStringExtra("AFFIRMATION_TITLE") ?: getString(R.string.edit_title_daily)
+        affirmationKey = intent.getStringExtra("AFFIRMATION_KEY") ?: "daily_affirmation_text"
 
-        if (affirmationKey == null) {
-            Toast.makeText(this, "Ошибка: Ключ аффирмации не найден.", Toast.LENGTH_LONG).show()
-            finish()
-            return
-        }
+        // 2. Устанавливаем заголовок Activity
+        binding.editTitleTextView.text = getString(R.string.affirmation_edit_title_format, title)
 
-        // 2. Устанавливаем заголовок
-        binding.titleTextView.text = getTitleText(affirmationKey!!)
-
-        // 3. Загружаем сохраненный текст для редактирования
+        // 3. Загружаем текущий текст аффирмации, если он был сохранен ранее
         loadAffirmationText()
 
-        // 4. Настраиваем слушатели кнопок
+        // 4. Настройка слушателей кнопок (Сохранить/Отмена)
         setupEventListeners()
     }
 
     /**
-     * Определяет текст заголовка в зависимости от ключа.
-     */
-    private fun getTitleText(key: String): String {
-        return if (key == "Daily") {
-            "Редактирование ЕЖЕДНЕВНОЙ аффирмации"
-        } else {
-            "Редактирование аффирмации для знака: $key"
-        }
-    }
-
-    /**
-     * Загружает сохраненный текст аффирмации из SharedPreferences и помещает его в EditText.
+     * Загружает сохраненный текст аффирмации из SharedPreferences в EditText.
      */
     private fun loadAffirmationText() {
-        val sharedPrefs = getSharedPreferences(prefsName, Context.MODE_PRIVATE)
-        // Если текст не найден, используем пустую строку.
-        val savedText = sharedPrefs.getString(affirmationKey, "")
-        binding.affirmationEditText.setText(savedText)
-    }
-
-    /**
-     * Настраивает слушатели для кнопок сохранения и отмены.
-     */
-    private fun setupEventListeners() {
-        // Кнопка Сохранить
-        binding.saveButton.setOnClickListener {
-            saveAffirmationText()
-        }
-
-        // Кнопка Отмена
-        binding.cancelButton.setOnClickListener {
-            Toast.makeText(this, "Изменения отменены.", Toast.LENGTH_SHORT).show()
-            finish() // Закрывает текущую активность
+        if (affirmationKey.isNotEmpty()) {
+            val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            val savedText = prefs.getString(affirmationKey, "")
+            binding.affirmationEditText.setText(savedText)
+            // Перемещаем курсор в конец текста для удобства редактирования
+            binding.affirmationEditText.setSelection(savedText?.length ?: 0)
         }
     }
 
     /**
-     * Сохраняет текст аффирмации в SharedPreferences под соответствующим ключом.
-     * Использует KTX-расширение 'edit { ... }' для более чистого кода.
+     * Сохраняет текст аффирмации из EditText в SharedPreferences.
      */
     private fun saveAffirmationText() {
-        val textToSave = binding.affirmationEditText.text.toString().trim()
-        val sharedPrefs = getSharedPreferences(prefsName, Context.MODE_PRIVATE)
+        if (affirmationKey.isNotEmpty()) {
+            // Получаем текст, удаляя лишние пробелы в начале/конце
+            val newAffirmation = binding.affirmationEditText.text.toString().trim()
+            val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-        // Сохраняем текст по ключу
-        sharedPrefs.edit { putString(affirmationKey, textToSave) }
+            // Сохраняем новое значение по ключу
+            with(prefs.edit()) {
+                putString(affirmationKey, newAffirmation)
+                apply() // Применяем изменения асинхронно
+            }
+        }
+    }
 
-        Toast.makeText(this, "Аффирмация сохранена!", Toast.LENGTH_SHORT).show()
-        finish() // Закрываем активность после сохранения
+    /**
+     * Настраивает обработчики нажатий для кнопок "Сохранить" и "Отмена".
+     */
+    private fun setupEventListeners() {
+        // Кнопка "Отмена" - просто закрывает Activity
+        binding.cancelButton.setOnClickListener {
+            finish()
+        }
+
+        // Кнопка "Сохранить" - сохраняет данные и закрывает Activity
+        binding.saveButton.setOnClickListener {
+            saveAffirmationText()
+            // Важно: finish() закрывает текущее Activity и возвращает на предыдущий экран (SettingsActivity)
+            finish()
+        }
     }
 }

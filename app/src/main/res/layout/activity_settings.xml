@@ -50,23 +50,23 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- Заменено эмодзи "👁️" на текст "Обзор" для лучшей совместимости -->
+            <!-- ИСПРАВЛЕНО: Используем ресурс button_preview -->
             <Button
                 android:id="@+id/dailyImageButton"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:text="Обзор"
+                android:text="@string/button_preview"
                 android:textSize="16sp"
                 android:layout_marginEnd="8dp" />
 
-            <!-- Заменено эмодзи "📝" на текст "Записи" для лучшей совместимости -->
+            <!-- ИСПРАВЛЕНО: Используем ресурс button_edit_short -->
             <Button
                 android:id="@+id/dailyAffirmationEditButton"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:text="Записи"
+                android:text="@string/button_edit_short"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -126,23 +126,22 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <!-- Заменено эмодзи "👁️" на текст "Обзор" для лучшей совместимости -->
+                <!-- Здесь также исправим на ресурсы, если вдруг этот блок использовался -->
                 <Button
                     android:id="@+id/hourlyImageButton"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:text="Обзор"
+                    android:text="@string/button_preview"
                     android:textSize="16sp"
                     android:layout_marginEnd="8dp" />
 
-                <!-- Заменено эмодзи "📝" на текст "Записи" для лучшей совместимости -->
                 <Button
                     android:id="@+id/hourlyAffirmationEditButton"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:text="Записи"
+                    android:text="@string/button_edit_short"
                     android:textSize="16sp" />
             </LinearLayout>
 

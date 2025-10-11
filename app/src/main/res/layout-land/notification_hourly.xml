@@ -10,8 +10,8 @@
         android:id="@+id/hourImage"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/notification_image_desc" />
+        android:contentDescription="@string/notification_image_desc"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/dailyText"
@@ -19,9 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/affirmation_day"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/hourlyText"
@@ -29,6 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="@string/affirmation_hour"
-        android:textSize="16sp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 </LinearLayout>
