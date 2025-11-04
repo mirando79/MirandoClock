@@ -1,210 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#202020"
-    android:padding="16dp"
-    tools:context=".SettingsActivity">
+    android:background="@android:color/black"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Секция "Аффирмация дня" -->
         <TextView
+            android:id="@+id/settingsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
+            android:text="@string/settings_title"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp" />
+
+        <Switch
+            android:id="@+id/dailySwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_daily_affirmations"
+            android:textColor="@android:color/white" />
+
+        <Switch
+            android:id="@+id/hourlySwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_hourly_affirmations"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:id="@+id/dailyAffirmationTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Аффирмация дня"
-            android:textColor="#E0E0E0"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="#404040"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="12dp">
-
-            <CheckBox
-                android:id="@+id/dailyAffirmationCheckbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="#FFFFFF" />
-
-            <TextView
-                android:id="@+id/dailyAffirmationTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="Здесь будет аффирмация дня"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <!-- ИСПРАВЛЕНО: Используем ресурс button_preview -->
-            <Button
-                android:id="@+id/dailyImageButton"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:text="@string/button_preview"
-                android:textSize="16sp"
-                android:layout_marginEnd="8dp" />
-
-            <!-- ИСПРАВЛЕНО: Используем ресурс button_edit_short -->
-            <Button
-                android:id="@+id/dailyAffirmationEditButton"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:text="@string/button_edit_short"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Разделительная линия -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:background="#606060" />
-
-        <!-- Настройки для 12 часов / знаков зодиака -->
-        <TextView
+        <Button
+            android:id="@+id/dailyAffirmationEditButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:text="Аффирмации по часам (Знаки Зодиака)"
-            android:textColor="#E0E0E0"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="Редактировать"
+            android:layout_marginTop="8dp" />
+        <Switch
+            android:id="@+id/beepSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Звуковой сигнал при уведомлении"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="8dp" />
 
-        <!-- Здесь будут 12 ячеек. Мы сделаем их в коде для удобства -->
+        <Switch
+            android:id="@+id/sleepSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Не беспокоить ночью (23:00–07:00)"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="8dp" />
+
+
         <LinearLayout
             android:id="@+id/hourlySettingsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"/>
 
-            <!-- Заготовка для одной ячейки (будет 12 таких) -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="#404040"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <CheckBox
-                    android:id="@+id/hourlyCheckbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="#FFFFFF" />
-
-                <TextView
-                    android:id="@+id/hourlyLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="1: Водолей"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <!-- Здесь также исправим на ресурсы, если вдруг этот блок использовался -->
-                <Button
-                    android:id="@+id/hourlyImageButton"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:text="@string/button_preview"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="8dp" />
-
-                <Button
-                    android:id="@+id/hourlyAffirmationEditButton"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:text="@string/button_edit_short"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <!-- Здесь будут добавлены другие 11 ячеек -->
-        </LinearLayout>
-
-        <!-- Разделительная линия -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:background="#606060" />
-
-        <!-- Секция "Ночной режим" и "Длительность подсветки" -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:text="Дополнительные настройки"
-            android:textColor="#E0E0E0"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <CheckBox
-                android:id="@+id/nightModeCheckbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="#FFFFFF" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Отключить бипер в ночное время"
-                android:textColor="#FFFFFF" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/screenTimeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Длительность: 3с" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/colorFontSoundButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Настройка цвета, шрифта и звука" />
 
     </LinearLayout>
-
 </ScrollView>

@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Основное -->
     <string name="app_name">Mirando Clock</string>
-    <string name="zodiac_icon">Знак Зодиака</string>
-    <string name="settings">Настройки</string>
 
-    <!-- Заголовки экранов редактирования -->
-    <string name="edit_title_daily">Редактирование Аффирмации Дня</string>
-    <!-- ИСПРАВЛЕНИЕ ОШИБКИ: теперь используется %s, чтобы принимать строку, а не число. -->
-    <string name="edit_title_hourly_format">Редактирование Почасовой Аффирмации (%1$s)</string>
+    <!-- Главные разделы -->
+    <string name="settings_title">Настройки</string>
+    <string name="edit_title">Редактировать аффирмацию</string>
 
-    <!-- Общий формат заголовка. -->
-    <string name="affirmation_edit_title_format">Редактирование: %1$s</string>
+    <!-- Настройки -->
+    <string name="settings_daily_affirmations">Аффирмации дня</string>
+    <string name="settings_hourly_affirmations">Аффирмации часа</string>
+    <string name="button_preview">Превью уведомления</string>
+    <string name="button_edit_short">Редактировать аффирмации</string>
 
-    <!-- Тексты-заполнители -->
-    <string name="daily_affirmation_placeholder">Нажмите "Изменить", чтобы задать аффирмацию дня.</string>
-    <string name="hourly_label_format">%1$d: %2$s</string>
+    <!-- Уведомления -->
+    <string name="affirmation_day">Аффирмация дня</string>
+    <string name="affirmation_hour">Аффирмация часа</string>
+    <string name="affirmation_hour_title">Аффирмация часа</string>
+    <string name="notification_image_desc">Иконка уведомления</string>
+    <string name="zodiac_icon">Знак зодиака</string>
 
-    <!-- Экран редактирования -->
+    <!-- Редактирование -->
+    <string name="edit_hint">Введите текст аффирмации...</string>
     <string name="edit_save">Сохранить</string>
     <string name="edit_cancel">Отмена</string>
-    <string name="edit_hint">Введите вашу новую аффирмацию здесь...</string>
+
+    <!-- Общие -->
+    <string name="settings">Настройки</string>
+    <string name="preview">Превью уведомления</string>
+    <string name="show_notification">Показать уведомление</string>
+
+    <string name="edit_title_daily">Редактировать аффирмацию дня</string>
+    <string name="affirmation_edit_title_format">Аффирмация %1$d часа</string>
+
+
+    <string name="edit_hint_affirmation">Введите аффирмацию</string>
+    <string name="button_cancel">Отмена</string>
+    <string name="button_save">Сохранить</string>
+
+    <!-- ожидает 2 аргумента: номер часа и название знака -->
+    <string name="hourly_affirmation_title_format">Аффирмация %1$d: %2$s</string>
+
+    <!-- сообщение, если аудиофайл не найден -->
+    <string name="audio_not_found">Аудиофайл не найден</string>
+
+
 
 </resources>

@@ -2,46 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:gravity="center"
-    android:orientation="vertical">
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/zodiacImage"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/zodiac_aries" />
+        android:src="@drawable/ic_logo_ss"
+        android:contentDescription="@string/app_name" />
 
     <TextView
         android:id="@+id/zodiacName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Овен"
+        android:text="Mirando Clock"
         android:textSize="20sp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp" />
 
-    <!-- Кнопка запуска уведомления -->
     <Button
         android:id="@+id/testNotificationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Показать уведомление" />
+        android:text="@string/show_notification"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/previewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/preview"
+        android:layout_marginTop="8dp" />
 
     <Button
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Настройки"
-        android:layout_marginTop="12dp"/>
-
-
-    <!-- Кнопка открытия превью -->
-    <Button
-        android:id="@+id/previewButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Превью уведомления"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center" />
+        android:text="@string/settings"
+        android:layout_marginTop="8dp" />
 
 </LinearLayout>

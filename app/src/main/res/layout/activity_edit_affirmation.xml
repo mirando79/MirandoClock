@@ -1,72 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#202020"
-    android:padding="16dp"
-    tools:context=".EditAffirmationActivity">
+    style="?android:attr/buttonBarStyle">
 
-    <!-- Заголовок, который будет отображать тип редактируемой аффирмации -->
     <TextView
         android:id="@+id/editTitleTextView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:textColor="#E0E0E0"
-        android:textSize="24sp"
+        android:text="@string/edit_title_daily"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Редактирование Аффирмации Дня" />
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
 
-    <!-- Поле для ввода текста аффирмации -->
     <EditText
         android:id="@+id/affirmationEditText"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/edittext_background"
-        android:gravity="top"
-        android:hint="@string/edit_hint"
-        android:inputType="textMultiLine|textCapSentences"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_hint_affirmation"
+        android:inputType="textMultiLine"
         android:minLines="5"
+        android:gravity="top|start"
         android:padding="12dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#AAAAAA"
-        app:layout_constraintBottom_toTopOf="@+id/saveButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTitleTextView" />
+        android:autofillHints="text"
+        android:layout_marginBottom="24dp" />
 
-    <!-- Кнопка "Сохранить" -->
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="@string/edit_save"
-        android:backgroundTint="#4CAF50"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cancelButton"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <!-- Кнопка "Отмена" -->
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/edit_cancel"
-        android:backgroundTint="#F44336"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/saveButton" />
+        <Button
+            android:id="@+id/cancelButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_cancel"
+            android:layout_marginEnd="16dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/saveButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_save" />
+    </LinearLayout>
+</LinearLayout>

@@ -34,4 +34,16 @@
         android:layout_height="48dp"
         android:text="📝"
         android:textSize="24sp" />
+
+
+
+    <!-- Кнопка проигрывания -->
+    <Button
+        android:id="@+id/hourlyPlayButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="▶"
+        android:textSize="18sp" />
+
 </LinearLayout>

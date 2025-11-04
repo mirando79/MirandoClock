@@ -6,8 +6,9 @@ import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
-import java.util.*
+import java.util.Calendar
 
 class HourlyNotificationService : Service() {
 
@@ -32,37 +33,43 @@ class HourlyNotificationService : Service() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        val (title, text) = getAffirmationForCurrentHour()
+        val views = RemoteViews(packageName, R.layout.notification_hourly)
+        views.setImageViewResource(R.id.hourImage, R.drawable.ic_logo_ss)
+        views.setTextViewText(R.id.dailyText, getString(R.string.affirmation_day))
+        views.setTextViewText(R.id.hourlyText, getAffirmationForHour())
 
         val notification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.ic_logo) // ← замени на свой логотип в drawable
-            .setContentTitle(title)           // всегда "Аффирмация часа"
-            .setContentText(text)             // текст аффирмации по часу
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setSmallIcon(R.drawable.ic_logo_ss)
+            .setCustomContentView(views)
+            .setContentTitle(getString(R.string.affirmation_hour_title))
+            .setContentText(getAffirmationForHour())
             .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
         notificationManager.notify(1, notification)
     }
 
-    private fun getAffirmationForCurrentHour(): Pair<String, String> {
+    private fun getAffirmationForHour(): String {
         val affirmations = listOf(
-            "Ты начинаешь день с ясностью и силой",
-            "Ты открыт для новых идей",
-            "Ты доверяешь процессу",
-            "Ты находишь гармонию внутри себя",
-            "Ты излучаешь уверенность",
-            "Ты готов к переменам",
-            "Ты ощущаешь поддержку мира",
-            "Ты действуешь с вдохновением",
-            "Ты находишь радость в простом",
-            "Ты раскрываешь свой потенциал",
-            "Ты спокоен и собран",
-            "Ты благодарен за этот момент"
+            "Водолей — думай нестандартно, вдохновляй перемены",
+            "Рыбы — доверься течению жизни и своей интуиции",
+            "Овен — начни день с энергии и уверенности",
+            "Телец — сохраняй спокойствие и внутренний баланс",
+            "Близнецы — делись мыслями свободно и легко",
+            "Рак — слушай своё сердце, оно знает путь",
+            "Лев — сияй и вдохновляй других",
+            "Дева — порядок приносит гармонию",
+            "Весы — найди красоту в мелочах",
+            "Скорпион — действуй решительно",
+            "Стрелец — будь открытым для новых идей",
+            "Козерог — стойкость приведёт к успеху"
         )
-        val hour = Calendar.getInstance().get(Calendar.HOUR) // 0–11
-        return Pair(getString(R.string.affirmation_hour), affirmations[hour])
+
+        val hour = Calendar.getInstance().get(Calendar.HOUR) % 12
+        return affirmations[hour]
     }
+
 
     override fun onBind(intent: Intent?): IBinder? = null
 }

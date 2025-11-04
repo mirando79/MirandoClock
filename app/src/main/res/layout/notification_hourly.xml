@@ -1,56 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#181818"
+    android:background="@android:color/black"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="8dp">
 
-    <!-- Заголовок уведомления: Время и Знак Зодиака -->
-    <TextView
-        android:id="@+id/notificationTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#E0E0E0"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"
-        android:text=""
-        tools:text="14:00 - Знак Зодиака (Лев)" />
-
-    <!-- Изображение знака зодиака или фона. Уменьшаем до разумного размера для уведомления. -->
     <ImageView
         android:id="@+id/hourImage"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="150dp"
         android:scaleType="centerCrop"
-        android:contentDescription="@string/zodiac_icon"
-        android:background="#222222"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        android:src="@drawable/ic_logo_ss"
+        android:contentDescription="@string/notification_image_desc" />
 
-    <!-- Текст ежедневной аффирмации (первая строка) -->
     <TextView
         android:id="@+id/dailyText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:text=""
-        tools:text="Ежедневная аффирмация: Сегодня ты делаешь большой шаг вперед." />
+        android:layout_marginTop="8dp"
+        android:text="@string/affirmation_day"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white" />
 
-    <!-- Текст почасовой (зодиакальной) аффирмации (вторая строка) -->
     <TextView
         android:id="@+id/hourlyText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textSize="14sp"
-        android:textColor="#CCCCCC"
-        android:text=""
-        tools:text="Аффирмация часа: Сила Вселенной течет через тебя." />
+        android:text="@string/affirmation_hour"
+        android:textSize="16sp"
+        android:textColor="@android:color/white" />
 
-    <!-- Кнопки действий (Например, "Отложить" или "Просмотреть") могут быть добавлены здесь,
-         но для простоты оставим только информационные поля. -->
 </LinearLayout>

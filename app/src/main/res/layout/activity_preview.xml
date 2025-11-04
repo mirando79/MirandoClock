@@ -10,8 +10,8 @@
         android:id="@+id/previewImage"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:src="@drawable/zodiac_aries"
-        android:contentDescription="@string/app_name" />
+        android:src="@drawable/ic_logo_ss"
+        android:contentDescription="@string/notification_image_desc" />
 
     <TextView
         android:id="@+id/dailyPreviewText"
